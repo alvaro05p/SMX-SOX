@@ -6,6 +6,9 @@ path=$3
 
 rc=0
 
+truefalse=0
+
+
 #Replenish
 
 if [ $# -le 1 ]; then
@@ -13,6 +16,8 @@ if [ $# -le 1 ]; then
         exit 1
 
 fi
+
+#/etc/passwd to have a list of all users
 
 userList=$(cat /etc/passwd | cut -d ":" -f1 | grep $user) || rc=1
 
@@ -51,7 +56,7 @@ fi
 if [ $action = "clean" ]; then
 
 
-if [ $# -eq 3 ]; then
+if [ $# -le 2 ]; then
 
         echo "You need 3 arguments"
 
@@ -89,7 +94,7 @@ fi
 
 if [ $action = "test" ]; then
 
-if [ $# -eq 3 ]; then
+if [ $# -le 2 ]; then
 
         echo "You need 3 arguments"
 
@@ -99,7 +104,20 @@ fi
 
 if [ -d $path ]; then
 
-        ls -l
+#Test -r to test reading permissions
+
+	test -r $path || truefalse=1
+
+
+	if [ $truefalse -eq 0 ]; then
+
+		echo "$user has reading permissions"
+
+	else
+
+		echo "User not have reading permission"
+
+	fi
 
 
 else
