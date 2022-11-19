@@ -30,10 +30,16 @@ if [ $param = "clean" ]; then
 fi
 
 
+
+
 if [ $param = "start" ]; then
 
 	mkdir $HOME/Friday-for-Friday
 	date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/time-friday-start.tkn
+
+	touch $HOME/Friday-for-Friday/statistics
+
+	date +%Mm-%Ss-start >> $HOME/Friday-for-Friday/statistics
 
 exit 0
 
@@ -50,6 +56,8 @@ if [ $param = "green" ]; then
 	mkdir -p $HOME/Friday-for-Friday/Green-Level
 	date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/Green-Level/time-friday-green.tkn
 
+
+	date +%Mm-%Ss-green >> $HOME/Friday-for-Friday/statistics
 		exit 0
 
 
@@ -71,6 +79,7 @@ if [ $param = "yellow" ]; then
         	mkdir -p $HOME/Friday-for-Friday/Yellow-Level
         	date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/Yellow-Level/time-friday-Yellow.tkn
 
+		date +%Mm-%Ss-yellow >> $HOME/Friday-for-Friday/statistics
 
 	exit 0
 
@@ -92,6 +101,7 @@ if [ $param = "red" ]; then
                 mkdir -p $HOME/Friday-for-Friday/Red-Level
                 date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/Red-Level/time-friday-Red.tkn
 
+		date +%Mm-%Ss-red >> $HOME/Friday-for-Friday/statistics
 	exit 0
 
 	else
@@ -113,6 +123,8 @@ if [ $param = "pirate" ]; then
                 mkdir -p $HOME/Friday-for-Friday/PIRATES
                 date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/PIRATES/time-friday-Pirates.tkn
 
+		date +%Mm-%Ss-pirate >> $HOME/Friday-for-Friday/statistics
+
 		exit 0
 
 
@@ -132,11 +144,19 @@ if [ $param = "end" ]; then
 
 		date +%H:%M-%d/%m/%Y > $HOME/Friday-for-Friday/END/end-time
 
+		date +%Mm-%Ss-end >> $HOME/Friday-for-Friday/statistics
 	else
 
 		echo "First pass pirate level"
 
 	fi
+
+fi
+
+if [ $param = "statistics" ]; then
+
+
+cat $HOME/Friday-for-Friday/statistics
 
 fi
 
