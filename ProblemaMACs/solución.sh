@@ -41,17 +41,45 @@ elif [ $control = 0 ]; then
         fi
 
 
-                cat arp.log | cut -d " " -f1,5 | while read lineas ; do
 
 
-                        echo $lineasA
 
+if [ -f textinfo ]; then
 
-                done
+        echo "Todo good"
 
+else
+
+        touch textinfo
 
 fi
 
+while true; do
+
+sleep 1
+
+          cat arp.log | cut -d " " -f5 | while read lineas ; do
+
+
+        echo "hola" > textinfo
+
+        info=$(cat textinfo)
+
+
+
+                if [ $palabra = $info ]; then
+
+
+                        echo $textinfo
+
+                fi
+
+        done
+
+        done
+
 done
+
+
 
 exit 0
