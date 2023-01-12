@@ -35,3 +35,4 @@ sudo apt isntall phpldapadmin
 ``` {.example}
 http://(IP)/phpldapadmin/
 ```
+[Paso 1](alvaro05p/SOX/capturas
