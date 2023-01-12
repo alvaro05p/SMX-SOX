@@ -1,10 +1,10 @@
-#Como configurar servidor OpenLdap
+# Como configurar servidor OpenLdap
 
 
-##Ejecutar los comandos siguientes:
+## Ejecutar los comandos siguientes:
 
 
-###Instalar el servicio:
+### Instalar el servicio:
 
 
 `sudo apt install slapd 
