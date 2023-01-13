@@ -60,6 +60,30 @@ http://(IP)/phpldapadmin/
 
 ![img2](https://github.com/alvaro05p/SMX-SOX/blob/master/caps/cap5markdown.png)
 
+Una vez hecho esto ya no tendriamos errores en la página
+
+Ahora debemos reconfigurar el slapd
+
+``` {.example}
+sudo dpkg-reconfigure slapd
+```
+En el menu que nos sale configuraremos las opciones como dice la tarea.
+
+Y ahora entraremos en este fichero de configuración:
+
+``` {.example}
+/etc/phpldapadmin/config.php
+```
+
+En este pondremos las ordenes de la linea de DNS segun la configuración del paso anterior.
+
+![Paso 1](https://gitlab.com/aberlanas/SMX-SOX/-/raw/master/Unit04-DomainAdministration/imgs/slapd-10.png)
+
+Y por ultimo debemos crear la estructura de grupos y usuarios con la intefaz grafica ya que nos dejará registrarnos.
+
+Con este comando podremos ver el server sin interfaz gráfica:
 
 
-
+``` {.example}
+ldapsearch -x -b dc=ubuntusrvXX,dc=smx2023,dc=net -H ldap://192.168.5.140
+```
