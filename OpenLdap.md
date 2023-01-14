@@ -43,6 +43,8 @@ http://(IP)/phpldapadmin/
 
 ## Parchear los errores/avisos deprecated
 
+El error de memoria se soluciona en /etc/php/8.1/apache2/php.ini
+
 ### Descargaremos este archivo que es el parche con wget:
 
 ![img2](https://github.com/alvaro05p/SMX-SOX/blob/master/caps/cap2markdown.png)
