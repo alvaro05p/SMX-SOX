@@ -132,8 +132,15 @@ olcTLSCertificateFile: /etc/ldap/ldap01_slapd_cert.pem
 -
 add: olcTLSCertificateKeyFile
 olcTLSCertificateKeyFile: /etc/ldap/ldap01_slapd_key.pem
-``` {.example}
+
 ### Ejecutaremos este comando y despues reiniciaremos los servicios para que se apliquen los cambios
 
+``` {.example}
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f certinfo.ldif
+```
+``` {.example}
+
+```
+``` {.example}
+
 ```
