@@ -1,6 +1,8 @@
 ######
 
-#Parte 2
+# Como configurar servidor OpenLdap Pt 2
 
-###Esta vez creado el servidor anterior seguiremos los siguientes pasos para configurar el cliente.
+## Esta vez configuraremos el cliente.
+
+En la maquina cliente ejecutaremos el siguiente comando:
 
