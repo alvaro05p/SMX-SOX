@@ -133,14 +133,54 @@ olcTLSCertificateFile: /etc/ldap/ldap01_slapd_cert.pem
 add: olcTLSCertificateKeyFile
 olcTLSCertificateKeyFile: /etc/ldap/ldap01_slapd_key.pem
 
-### Ejecutaremos este comando y despues reiniciaremos los servicios para que se apliquen los cambios
+### Ejecutaremos estos comandos que reiniciarian los servicios para que se apliquen los cambios
 
 ``` {.example}
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f certinfo.ldif
 ```
-``` {.example}
-
+``` {example}
+dapwhoami -x -H ldaps://ldap01.example.com
 ```
-``` {.example}
+(despues de ejecutar este conmando nos deberia responder con "Anonymous")
 
+# Certificado para una réplica de OpenLDAP
+
+### Meteremos los certificados en un directorio que llamaremos "slap02-ssl"
+
+``` {.example}
+mkdir ldap02-ssl
+cd ldap02-ssl
+certtool --generate-privkey \
+--bits 2048 \
+--outfile ldap02_slapd_key.pem
 ```
+Despues de esto creamos el archivo de configuración ldap02.info y escribimos esto en el:
+
+``` {.example}
+organization = Example Company
+cn = ldap02.example.com
+tls_www_server
+encryption_key
+signing_key
+expiration_days = 365
+```
+
+Creamos el certificado del cliente:
+
+
+``` {.example}
+sudo certtool --generate-certificate \
+--load-privkey ldap02_slapd_key.pem \
+--load-ca-certificate /etc/ssl/certs/mycacert.pem \
+--load-ca-privkey /etc/ssl/private/mycakey.pem \
+--template ldap02.info \
+--outfile ldap02_slapd_cert.pem
+```
+
+Copiamos el certificado CA
+
+``` {.example}
+cp /etc/ssl/certs/mycacert.pem .
+```
+
+
