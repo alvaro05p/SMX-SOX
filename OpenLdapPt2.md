@@ -188,5 +188,129 @@ Y ahora volvemos a reiniciar el servicio:
 ``` {.example}
 ldapwhoami -x -H ldaps://ldap02.example.com
 ```
+``` {.example}
+```
+# Para instalar SSSD deberemos instalar los siguientes paquetes:
+
+``` {.example}
+sssd libpam-sss libnss-sss
+```
+Le creamos un archivo de configuración:
+``` {.example}
+/etc/sssd/sssd.conf
+```
+
+Esta sera la configuracion que tendremos que pegar:
+
+``` {.example}
+sssd libpam-sss libnss-sss
+[sssd]
+
+services = nss, pam, ifp
+
+config_file_version = 2
+
+domains = smx2023.net
+
+[nss]
+
+filter_groups = root
+
+filter_users = root
+
+reconnection_retries = 3
+
+[domain/smx2023.net]
+
+ldap_id_use_start_tls = True
+
+cache_credentials = True
+
+ldap_search_base = dc=ubuntusrv, dc=smx2023,dc=net
+
+id_provider = ldap
+
+debug_level = 3
+
+auth_provider = ldap
+
+chpass_provider = ldap
+
+access_provider = ldap
+
+ldap_schema = rfc2307
+
+ldap_uri = ldap://ubuntusrv.smx2023.net
+
+ldap_default_bind_dn = cn=admin,dc=ubuntusrv,dc=smx2023,dc=net
+
+ldap_id_use_start_tls = true
+
+ldap_default_authtok = Lin4dm1n
+
+ldap_tls_reqcert = demand
+
+ldap_tls_cacert = /etc/ssl/certs/ldapcacert.crt
+
+ldap_tls_cacertdir = /etc/ssl/certs
+
+ldap_search_timeout = 50
+
+ldap_network_timeout = 60
+
+ldap_access_order = filter
+
+ldap_access_filter = (objectClass=posixAccount)
+
+ldap_user_search_base = cn=goblins,dc=ubuntusrv,dc=smx2023,dc=net
+
+ldap_user_object_class = inetOrgPerson
+
+ldap_user_gecos = cn
+
+enumerate = True
+
+debug_level = 0x3ff0
+
+```
+
+Le haremos un Chown y le daremos los permisos 0600
 
 
+Y reiniciaremos el servicio con 
+
+
+``` {.example}
+systemctl restart sssd
+```
+
+``` {.example}
+systemctl status sssd
+systemctl enable sssd
+```
+
+Comprobaremos si funciona y habilitaremos el servicio
+
+``` {.example}
+systemctl status sssd
+systemctl enable sssd
+```
+
+Editamos el siguiente archivo:
+``` {.example}
+/etc/pam.d/common-session
+```
+
+Y la configuración sera asi:
+
+``` {.example}
+session required        pam_mkhomedir.so skel=/etc/skel/ umask=0022
+```
+
+#Para comprobar si funciona:
+
+``` {.example}
+getent passwd goblin01
+```
+
+Gracias por leer mi tuto.
