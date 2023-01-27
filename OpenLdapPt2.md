@@ -183,4 +183,10 @@ Copiamos el certificado CA
 cp /etc/ssl/certs/mycacert.pem .
 ```
 
+Y ahora volvemos a reiniciar el servicio:
+
+``` {.example}
+ldapwhoami -x -H ldaps://ldap02.example.com
+```
+
 
